@@ -1,0 +1,9 @@
+{
+  "relation": ["delegate_permission/common.handle_all_urls"],
+  "target": {
+    "namespace": "android_app",
+    "package_name": "app.netlify.optimistic_mccarthy_026140.twa",
+    "sha256_cert_fingerprints":
+      ["32:52:ED:C7:33:45:FA:8A:C9:46:EB:D1:10:A2:0E:5B:2C:14:68:98:20:0D:DA:85:8A:90:5A:41:58:7B:0E:8F"]
+   }
+}
