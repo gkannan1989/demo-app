@@ -1,0 +1,208 @@
+openapi: 3.0.3
+servers:
+  - url: 'http://quote-staging.simplybusiness.com'
+info:
+  description: >-
+    This is a US chopin journey services
+  version: 1.0.0
+  title: Smart Quote API
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: apiteam@swagger.io
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: trade
+    description: Everything about your journey
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+  - name: question
+    description: Everything about your question and its services
+    externalDocs:
+      description: Find out more
+      url: 'http://swagger.io'
+paths:
+  /trade_search:
+    get:
+      tags:
+        - trade
+      summary: Finds Trade by name
+      description: Search trade by name
+      operationId: trade_search
+      parameters:
+        - name: q
+          in: query
+          description: Search term
+          required: true
+          explode: true
+          schema:
+            type: string
+        - name: primary_detail
+          in: query
+          description: Primary detail
+          required: true
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - "true"
+                - "false"
+              default: "true"
+        - name: search_scope
+          in: query
+          description: Search scopre
+          required: true
+          explode: true
+          schema:
+            type: array
+            items:
+              type: string
+              enum:
+                - all_vertical
+                - cyber
+                - usa
+              default: all_vertical
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid trade name
+      security:
+        - journey_auth:
+            - 'write:data'
+            - 'read:data'
+  /q/usa/usa/business/{journeyId}:
+    get:
+      tags:
+        - question
+      summary: Enrichment on questions
+      description: Enrichment on questions
+      operationId: enrichmentId
+      parameters:
+        - name: journeyId
+          in: path
+          description: journey id
+          required: true
+          explode: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid status value
+      security:
+        - journey_auth:
+            - 'write:data'
+            - 'read:data'
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+components:
+  responses:
+    PetResponse:
+      description: successful operation
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/Pet'
+  requestBodies:
+    UserArray:
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/User'
+      description: List of user object
+      required: true
+    Pet:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Pet'
+      description: Pet object that needs to be added to the store
+      required: true
+  securitySchemes:
+    journey_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
+          scopes:
+            'write:data': modify data in journey
+            'read:data': read data journey related information
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        username:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        phone:
+          type: string
+        userStatus:
+          type: integer
+          format: int32
+          description: User Status
+      xml:
+        name: User
+    Pet:
+      type: object
+      required:
+        - value
+        - label
+        - vertical
+        - supported_verticals
+        - type
+        - trade_detail
+        - trade_type
+        - blocked
+      properties:
+        value:
+          type: string
+        vertical:
+          type: string
+          example: usa
+        supported_verticals:
+          type: string
+        label:
+          type: string
+        type:
+          type: string
+        trade_detail:
+          type: string
+        trade_type:
+          type: string
+        blocked:
+          type: boolean
+      xml:
+        name: Pet
