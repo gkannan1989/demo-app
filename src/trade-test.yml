@@ -70,11 +70,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
             application/json:
               schema:
                 type: array
@@ -105,11 +100,6 @@ paths:
         '200':
           description: successful operation
           content:
-            application/xml:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Pet'
             application/json:
               schema:
                 type: array
@@ -129,11 +119,6 @@ components:
     PetResponse:
       description: successful operation
       content:
-        application/xml:
-          schema:
-            type: array
-            items:
-              $ref: '#/components/schemas/Pet'
         application/json:
           schema:
             type: array
@@ -152,9 +137,6 @@ components:
     Pet:
       content:
         application/json:
-          schema:
-            $ref: '#/components/schemas/Pet'
-        application/xml:
           schema:
             $ref: '#/components/schemas/Pet'
       description: Pet object that needs to be added to the store
