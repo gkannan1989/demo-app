@@ -1,6 +1,6 @@
 openapi: 3.0.3
 servers:
-  - url: 'https://quote-staging.simplybusiness.com'
+  - url: '//quote-staging.simplybusiness.com'
 info:
   description: >-
     This is a US chopin journey services
